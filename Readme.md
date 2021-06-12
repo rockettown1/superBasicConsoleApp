@@ -9,7 +9,7 @@ Serialises a List of notes and stores them in a local json file.
 Reads from the local json file and deserialises back into C#.
   
 **commands**
-* dotnet run add --note "whatever you note is"
+* dotnet run add --note "whatever your note is"
 * dotnet run list
 * dotnet run remove
 
