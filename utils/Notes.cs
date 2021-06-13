@@ -18,11 +18,12 @@ namespace utils
       else
       {
         List<Note> notes = LoadNotes();
+        //method below was abstracted out into it's own 'unit' of work.
         var newNote = new Note()
         {
           note = passedNote
         };
-        notes.Add(newNote);
+        AddNoteToNoteList(notes, newNote);
         SaveNotes(notes);
         WriteLine($"Note added: {passedNote}");
         return true;
@@ -30,11 +31,16 @@ namespace utils
 
     }
 
-    static private List<Note> LoadNotes()
+    public static void AddNoteToNoteList(List<Note> list, Note newNote)
+    {
+      list.Add(newNote);
+    }
+
+    static public List<Note> LoadNotes(string filePath = "./myNotes.json")
     {
       try
       {
-        string jsonString = File.ReadAllText("../reminder_cli/myNotes.json");
+        string jsonString = File.ReadAllText(filePath);
         List<Note> notes = JsonSerializer.Deserialize<List<Note>>(jsonString);
         return notes;
       }

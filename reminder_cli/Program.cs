@@ -45,7 +45,6 @@ namespace reminder_cli
       }
       catch (System.Exception)
       {
-
         WriteLine("You didn't enter any commands!");
       }
     }

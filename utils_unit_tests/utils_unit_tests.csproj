@@ -25,4 +25,10 @@
     <ProjectReference Include="../utils/utils.csproj" />
   </ItemGroup>
 
+  <ItemGroup>
+    <None Include="./bin/Debug/net5.0/myNotes.json">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </None>
+  </ItemGroup>
+
 </Project>
