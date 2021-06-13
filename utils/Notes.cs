@@ -7,7 +7,7 @@ namespace utils
 {
   public class Notes
   {
-    public static List<Note> notes = new List<Note>();
+
     static public bool AddNote(string passedNote)
     {
       if (passedNote == "")
@@ -17,13 +17,13 @@ namespace utils
       }
       else
       {
-        LoadNotes();
+        List<Note> notes = LoadNotes();
         var newNote = new Note()
         {
           note = passedNote
         };
         notes.Add(newNote);
-        SaveNotes();
+        SaveNotes(notes);
         WriteLine($"Note added: {passedNote}");
         return true;
       }
@@ -35,7 +35,7 @@ namespace utils
       try
       {
         string jsonString = File.ReadAllText("../reminder_cli/myNotes.json");
-        notes = JsonSerializer.Deserialize<List<Note>>(jsonString);
+        List<Note> notes = JsonSerializer.Deserialize<List<Note>>(jsonString);
         return notes;
       }
       catch (System.Exception)
@@ -45,16 +45,16 @@ namespace utils
 
     }
 
-    static private void SaveNotes()
+    static private void SaveNotes(List<Note> myList)
     {
-      string jsonString = JsonSerializer.Serialize(notes);
+      string jsonString = JsonSerializer.Serialize(myList);
       string fileName = "myNotes.json";
       File.WriteAllText(fileName, jsonString);
     }
 
     static public void ListNotes()
     {
-      LoadNotes();
+      List<Note> notes = LoadNotes();
       for (int i = 0; i < notes.Count; i++)
       {
         WriteLine($"{i + 1}: {notes[i].note}");
@@ -63,10 +63,18 @@ namespace utils
 
     static public void RemoveNote(int noteNum)
     {
-      LoadNotes();
-      WriteLine($"Removing the note: {notes[noteNum - 1].note}");
-      notes.RemoveAt(noteNum - 1);
-      SaveNotes();
+      if (noteNum > LoadNotes().Count || noteNum < 0)
+      {
+        WriteLine("Number does not exist in the list");
+      }
+      else
+      {
+        List<Note> notes = LoadNotes();
+        WriteLine($"Removing the note: {notes[noteNum - 1].note}");
+        notes.RemoveAt(noteNum - 1);
+        SaveNotes(notes);
+      }
+
     }
 
 

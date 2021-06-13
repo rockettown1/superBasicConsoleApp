@@ -30,18 +30,11 @@ namespace reminder_cli
           string reply = ReadLine();
           if (int.TryParse(reply, out noteNum))
           {
-            if (noteNum > Notes.notes.Count || noteNum < 0)
-            {
-              WriteLine("That number isn't in the list!");
-            }
-            else
-            {
-              Notes.RemoveNote(noteNum);
-            }
+            Notes.RemoveNote(noteNum);
           }
           else
           {
-            WriteLine("You didn't enter the note's number for the one you want to remove.");
+            WriteLine("You didn't enter a number for the note");
           }
         }
         else
